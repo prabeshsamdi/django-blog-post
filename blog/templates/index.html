@@ -29,11 +29,33 @@
     padding-top: 20px;
   
    }
-   .container1{
-    height: 50vh;
-    background-color: white;
-    background-image: url('/media/images/map.png');
-   }
+   .container1 {    
+    justify-content: center;
+            text-align: center;
+            position: relative;
+            height: 50vh;
+            background-color: white;
+            overflow: hidden; /* Ensure the pseudo-element doesn't affect layout */
+        }
+
+        .container1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/media/images/map.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1; /* Ensure the content is above the pseudo-element */
+        }
    .row{
     /* justify-content: center; */
     padding-left: 70px;
@@ -55,6 +77,43 @@
    .zoom:hover {
             transform: scale(1.1); /* Increase the scale value to zoom in more */
         }
+        .more {
+            height: 40px;
+            width: 100px;
+            margin-top: 7px;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            margin-left: 20px;
+            border: 1px solid grey;
+            border-radius: 4px;
+        }
+
+        .more::after {
+
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: red;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+ .more:hover{
+    border: 1px solid white;
+    font-size: medium;
+    font-weight: bold;
+    background-color: white;
+ }
+        .more:hover::after {
+
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
 </style>
 <head>
     <meta charset="UTF-8">
@@ -67,8 +126,8 @@
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h1 class=" site-heading my-4 mt-3 text-black"> Welcome to my awesome Blog </h1>
-                  
+                    <h1 class=" site-heading my-4 mt-13 text-black font-bold text-xl"> Welcome to my awesome Blog </h1>
+                    <h1 class="text-black font-bold" style="font-size: 50px;">UNLOCKING GEOSPATIAL INSIGHTS NAVIGATE THE WORLD OF GIS</h1>
                 </div>
             </div>
         </div>
@@ -82,24 +141,30 @@
     <div class="row">
         <!-- Blog Entries Column -->
         {% for post in posts %}
-        <div class="bg-gray-100  m-2 shadow-lg rounded-lg overflow-hidden card">
-            <div class=" bg-white">
-                {% if post.titleImage %}
-                <img src="{{ post.titleImage.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover transition-transform duration-300 zoom">
-            {% endif %}
-                <!-- <div class="p-4 bg-red-500 h-50 flex items-center justify-center">
-                    <h2 class="text-xl font-semibold text-white">BLOG</h2>
-                </div> -->
-                <hr class="border-t-2 border-gray-300 my-8">
-                <div class="p-2 ">
-                    <h2 class="text-xl font-semibold">{{ post.title }}</h2>
-                    <p class="text-gray-700">By: {{ post.author }}</p>
-                    <p class="text-gray-600 text-sm mb-2">{{ post.created_on }}</p>
-                    <p class="text-sm text-gray-700">{{ post.content|truncatechars:200 }}</p>
+<div class="bg-gray-100 m-2 shadow-lg rounded-lg overflow-hidden card">
+    <div class="bg-white">
+        {% if post.titleImage %}
+        <img src="{{ post.titleImage.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover transition-transform duration-300 zoom">
+        {% endif %}
+        <hr class="border-t-2 border-gray-300 my-8">
+        <div class="p-2">
+            <a href="{% url 'post_detail' post.pk %}" class="block">
+                <h2 class="text-xl font-semibold hover:font-bold hover:text-blue-500">{{ post.title }}</h2>
+            </a>
+            <p class="text-gray-700">By: {{ post.author }}</p>
+            <p class="text-gray-600 text-sm mb-2">{{ post.created_on }}</p>
+            <p class="text-sm text-gray-700">{{ post.content|truncatechars:200 }}</p>
+            <a href="{% url 'post_detail' post.pk %}" class="block">
+
+                <div class="more">
+                    <p class="text-sm text-gray-700 mt-2">More...</p>
                 </div>
-            </div>
+            </a>
         </div>
-    {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
     
         </div>
     </div>
