@@ -4,7 +4,7 @@
     body {
         font-family: "Roboto", sans-serif;
         font-size: 18px;
-        background-color: #fdfdfd;
+        background-color: #EEEEEE;
     }
 
     .head_text {
@@ -14,8 +14,19 @@
     .card {
         box-shadow: 0 16px 48px #E3E7EB;
     }
+    .blogCard{
+        width: 20vw;
+    }
+   .container{
+    padding-top: 20px;
+   }
 </style>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
 <header class="masthead">
     <div class="overlay"></div>
     <div class="container">
@@ -23,7 +34,7 @@
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
                     <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to my awesome Blog </h3>
-                    <p class="text-light">We Love Django As much as you do..! &nbsp
+                    <p class="text-light"> my name is Samdi hehe huhuh hohoh hmmmhmmmhmmmm 
                     </p>
                 </div>
             </div>
@@ -32,17 +43,24 @@
 </header>
 <div class="container">
     <div class="row">
+        
         <!-- Blog Entries Column -->
-        <ul>
-            {% for post in posts %}
-                <li>
-                    <h2>{{ post.title }}</h2>
-                    <p>Author: {{ post.author }}</p>
-                    <p>Published on: {{ post.created_on }}</p>
-                    <p>{{ post.content }}</p>
-                </li>
-            {% endfor %}
-        </ul>
+        {% for post in posts %}
+        <div class="bg-gray-100 w-200 m-2 shadow-md rounded-lg overflow-hidden">
+            <div class="w-64  bg-white">
+                <div class="p-4 bg-red-500 h-100 flex items-center justify-center">
+                    <h2 class="text-xl font-semibold text-white">BLOG</h2>
+                </div>
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold">{{ post.title }}</h2>
+                    <p class="text-gray-700">By: {{ post.author }}</p>
+                    <p class="text-gray-600 text-sm mb-2">{{ post.created_on }}</p>
+                    <p class="text-sm text-gray-700">{{ post.content|truncatechars:200 }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    
         </div>
     </div>
 </div>
