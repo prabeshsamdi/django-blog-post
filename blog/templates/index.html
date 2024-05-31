@@ -12,14 +12,49 @@
     }
 
     .card {
-        box-shadow: 0 16px 48px #E3E7EB;
+        box-shadow: 1 16px 48px #E3E7EB;
+        width: 25vw;
+
     }
+    @media (max-width: 768px) {
+    .card {
+        /* Set width to 100vw for mobile devices */
+        width: 100vw;
+    }
+}
     .blogCard{
         width: 20vw;
     }
    .container{
     padding-top: 20px;
+  
    }
+   .container1{
+    height: 50vh;
+    background-color: white;
+    background-image: url('/media/images/map.png');
+   }
+   .row{
+    /* justify-content: center; */
+    padding-left: 70px;
+   }
+   @media(max-width:768px){
+    .row{
+        padding-left: 0px;
+    }
+   }
+   .latestBlogText{
+    padding-top: 10px;
+    padding-left: 115px;
+   }
+   @media(max-width:768px){
+    .latestBlogText{
+        padding-left: 50px;
+    }
+   }
+   .zoom:hover {
+            transform: scale(1.1); /* Increase the scale value to zoom in more */
+        }
 </style>
 <head>
     <meta charset="UTF-8">
@@ -27,31 +62,36 @@
     <title>Cart</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<header class="masthead">
-    <div class="overlay"></div>
-    <div class="container">
+<header class="">
+    <div class="container1">
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to my awesome Blog </h3>
-                    <p class="text-light"> my name is Samdi hehe huhuh hohoh hmmmhmmmhmmmm 
-                    </p>
+                    <h1 class=" site-heading my-4 mt-3 text-black"> Welcome to my awesome Blog </h1>
+                  
                 </div>
             </div>
         </div>
     </div>
 </header>
+<div class="latestBlogText">
+    <p class="text-2xl font-bold">My Latest Blogs</p>
+</div>
+
 <div class="container">
     <div class="row">
-        
         <!-- Blog Entries Column -->
         {% for post in posts %}
-        <div class="bg-gray-100 w-200 m-2 shadow-md rounded-lg overflow-hidden">
-            <div class="w-64  bg-white">
-                <div class="p-4 bg-red-500 h-100 flex items-center justify-center">
+        <div class="bg-gray-100  m-2 shadow-lg rounded-lg overflow-hidden card">
+            <div class=" bg-white">
+                {% if post.titleImage %}
+                <img src="{{ post.titleImage.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover transition-transform duration-300 zoom">
+            {% endif %}
+                <!-- <div class="p-4 bg-red-500 h-50 flex items-center justify-center">
                     <h2 class="text-xl font-semibold text-white">BLOG</h2>
-                </div>
-                <div class="p-4">
+                </div> -->
+                <hr class="border-t-2 border-gray-300 my-8">
+                <div class="p-2 ">
                     <h2 class="text-xl font-semibold">{{ post.title }}</h2>
                     <p class="text-gray-700">By: {{ post.author }}</p>
                     <p class="text-gray-600 text-sm mb-2">{{ post.created_on }}</p>
