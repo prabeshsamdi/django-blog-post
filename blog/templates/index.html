@@ -114,6 +114,12 @@
             transform: scaleX(1);
             transform-origin: bottom left;
         }
+        .newsletters{
+            width: 100vw;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 </style>
 <head>
     <meta charset="UTF-8">
@@ -163,10 +169,22 @@
         </div>
     </div>
 </div>
+
 {% endfor %}
 
     
         </div>
+    </div>
+</div>
+<div class="newsletters">
+    <div class="w-full max-w-md p-4 ">
+        <h1 class="text-3xl font-bold mb-4">Newsletters</h1>
+        <form class="flex items-center border rounded-lg overflow-hidden">
+            <input type="email" placeholder="Your Email" class="flex-grow p-4 text-gray-700 focus:outline-none">
+            <button type="submit" class="bg-white-500 text-black font-bold hover:bg-blue-600 focus:outline-none">
+                JOIN
+            </button>
+        </form>
     </div>
 </div>
 {%endblock%}
