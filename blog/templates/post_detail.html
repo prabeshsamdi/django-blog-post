@@ -56,6 +56,53 @@
             background-position: center;
 
     }
+    .eachpost{
+        margin: 5px;
+        color: blue;
+        font-weight: bold;
+        display: flex;
+        margin-top: 10px;
+
+    }
+    .postimage{
+        height: 50px;
+        width: 50px;
+        margin: 5px;
+        border: 1px solid grey;
+    }
+    .zoom-container {
+    position: relative;
+    display: inline-block;
+}
+
+.zoom-img {
+    width: 400px;
+    transition: transform 0.3s ease;
+}
+
+.zoom-preview {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 420px; /* Adjust this value to position the zoomed image */
+    width: 400px; /* Adjust the size as needed */
+    height: 400px; /* Adjust the size as needed */
+    border: 1px solid #ccc;
+    background-size: 800px; /* Adjust based on zoom level */
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1000;
+}
+
+.zoom-container:hover .zoom-img {
+    transform: scale(1.2);
+}
+
+.zoom-container:hover .zoom-preview {
+    display: block;
+    background-image: url('{{ post.firstImage.url }}');
+}
+
 </style>
 <body class="bg-gray-100 p-6">
     <div class="container mx-auto ">
@@ -75,36 +122,90 @@
                     
                     <div class="p-4 detail">
                         {% if post.firstImage %}
-                    <img src="{{ post.firstImage.url }}" alt="{{ post.title }}" class="w-400 object-cover transition-transform duration-300 zoom">
-                    {% endif %}
-                        <p class="text-sm ">{{ post.first }}</p>
+                        <div class="zoom-container">
+                            <img src="{{ post.firstImage.url }}" alt="{{ post.title }}" class="zoom-img">
+                            <div class="zoom-preview"></div>
+                        </div>
+                        {% endif %}
+                        <p class="text-sm">{{ post.first }}</p>
                     </div>
+                    
                     <div class="p-4 detail">
                         {% if post.secondImage %}
-                    <img src="{{ post.secondImage.url }}" alt="{{ post.title }}" class="w-400 object-cover transition-transform duration-300 zoom">
-                    {% endif %}
-                        <p class="text-sm ">{{ post.second }}</p>
+                        <div class="zoom-container">
+                            <img src="{{ post.secondImage.url }}" alt="{{ post.title }}" class="zoom-img">
+                            <div class="zoom-preview"></div>
+                        </div>
+                        {% endif %}
+                        <p class="text-sm">{{ post.second }}</p>
                     </div>
                    
                 </div>
             </div>
             {% for aboutme in about%}
             <div class="bg-white m-2 shadow-lg rounded-sm overflow-hidden aboutme">
-                <h1>About Me </h1>
+                <h1 class="text-4xl font-bold">About Me </h1>
                 <div class="profile" style="background-image: url('{{aboutme.profile_pic.url}}');">
                     
                 </div>
                 <h2>{{aboutme.full_name}}</h2>
                 <p>{{aboutme.about}}</p>
+                <hr>
+                <h1 class="text-3xl font-bold mt-2 mb-2"> Recent Blogs</h1>
                 {%for post in posts%}
-                <div class="posts">
-                    <p>{{post.title}}</p>
+                    <div class="eachpost">
+                        <div class="postimage">
+                             <img src="{{post.titleImage.url}}" alt="">
+                        </div>
+                        <h3>{{post.title}}</h3>
                 </div>
+<hr>
                 {%endfor%}
             </div>
             {%endfor%}
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const zoomContainer = document.querySelector('.zoom-container');
+    const zoomImg = document.querySelector('.zoom-img');
+    const zoomPreview = document.querySelector('.zoom-preview');
+
+    zoomContainer.addEventListener('mousemove', function (e) {
+        const rect = zoomContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left; // x position within the element
+        const y = e.clientY - rect.top; // y position within the element
+
+        const imgWidth = zoomImg.offsetWidth;
+        const imgHeight = zoomImg.offsetHeight;
+
+        const previewWidth = zoomPreview.offsetWidth;
+        const previewHeight = zoomPreview.offsetHeight;
+
+        // Calculate background position for zoom-preview
+        const bgPosX = (x / imgWidth) * 100;
+        const bgPosY = (y / imgHeight) * 100;
+
+        zoomPreview.style.backgroundPosition = `${bgPosX}% ${bgPosY}%`;
+
+        // Position the zoom-preview near the mouse cursor
+        const previewX = x - (previewWidth / 2);
+        const previewY = y - (previewHeight / 2);
+
+        zoomPreview.style.left = `${previewX}px`;
+        zoomPreview.style.top = `${previewY}px`;
+    });
+
+    zoomContainer.addEventListener('mouseleave', function () {
+        zoomPreview.style.display = 'none';
+    });
+
+    zoomContainer.addEventListener('mouseenter', function () {
+        zoomPreview.style.display = 'block';
+    });
+});
+
+</script>
 </html>
 {%endblock%}
