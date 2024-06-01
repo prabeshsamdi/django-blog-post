@@ -7,22 +7,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ post.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
+<style>
+    .main{
+        display: flex;
+    }
+    @media(max-width:768px){
+        .main{
+            display: block;
+        }
+       
+    }
+    .aboutme{
+        width: 50vw;
+        padding: 50px;
+        border-radius: 5px;
+    }
+    @media(max-width:768px){
+        .aboutme{
+            width: 100vw;
+        }
+
+    }
+    .aboutme p{
+        color: grey;
+        font-family: 'Oswald';
+    }
+    .aboutme h2{
+        color: black;
+        font-weight: bold;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        font-size: 30px;
+        font-family: 'Oswald';
+    }
+    .card{
+        width: 100vw;
+        border-radius: 5px;
+    }
+    .profile{
+        margin-top: 50px;
+        width: 300px;
+        height: 400px;
+        border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+
+    }
+</style>
 <body class="bg-gray-100 p-6">
-    <div class="container mx-auto">
-        <div class="bg-gray-100 m-2 shadow-lg rounded-lg overflow-hidden card">
-            <div class="bg-white">
-                {% if post.titleImage %}
-                <img src="{{ post.titleImage.url }}" alt="{{ post.title }}" class="w-full object-cover transition-transform duration-300 zoom">
-                {% endif %}
-                <div class="p-4">
-                    <h1 class="text-3xl font-bold">{{ post.title }}</h1>
-                    <p class="text-gray-700 mt-4">By: {{ post.author }}</p>
-                    <p class="text-gray-600 text-sm mb-4">{{ post.created_on }}</p>
-                    <p class="text-gray-700">{{ post.content }}</p>
+    <div class="container mx-auto ">
+        <div class="bg-red main">
+            
+            <div class="bg-gray-100 m-2 shadow-lg rounded-sm overflow-hidden card">
+                <div class="bg-white">
+                    {% if post.titleImage %}
+                    <img src="{{ post.titleImage.url }}" alt="{{ post.title }}" class="w-full object-cover transition-transform duration-300 zoom">
+                    {% endif %}
+                    <div class="p-4">
+                        <h1 class="text-3xl font-bold">{{ post.title }}</h1>
+                        <p class="text-gray-700 mt-4">By: {{ post.author }}</p>
+                        <p class="text-gray-600 text-sm mb-4">{{ post.created_on }}</p>
+                        <p class="text-gray-700">{{ post.content }}</p>
+                    </div>
+                    
+                    <div class="p-4 detail">
+                        {% if post.firstImage %}
+                    <img src="{{ post.firstImage.url }}" alt="{{ post.title }}" class="w-400 object-cover transition-transform duration-300 zoom">
+                    {% endif %}
+                        <p class="text-sm ">{{ post.first }}</p>
+                    </div>
+                    <div class="p-4 detail">
+                        {% if post.secondImage %}
+                    <img src="{{ post.secondImage.url }}" alt="{{ post.title }}" class="w-400 object-cover transition-transform duration-300 zoom">
+                    {% endif %}
+                        <p class="text-sm ">{{ post.second }}</p>
+                    </div>
+                   
                 </div>
             </div>
+            {% for aboutme in about%}
+            <div class="bg-white m-2 shadow-lg rounded-sm overflow-hidden aboutme">
+                <h1>About Me </h1>
+                <div class="profile" style="background-image: url('{{aboutme.profile_pic.url}}');">
+                    
+                </div>
+                <h2>{{aboutme.full_name}}</h2>
+                <p>{{aboutme.about}}</p>
+                {%for post in posts%}
+                <div class="posts">
+                    <p>{{post.title}}</p>
+                </div>
+                {%endfor%}
+            </div>
+            {%endfor%}
         </div>
     </div>
 </body>

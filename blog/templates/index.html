@@ -13,7 +13,7 @@
 
     .card {
         box-shadow: 1 16px 48px #E3E7EB;
-        width: 25vw;
+        width: 20vw;
 
     }
     @media (max-width: 768px) {
@@ -23,18 +23,15 @@
     }
 }
     .blogCard{
-        width: 20vw;
+        width: 25vw;
     }
-   .container{
-    padding-top: 20px;
-  
-   }
+
    .container1 {    
     justify-content: center;
             text-align: center;
             position: relative;
             height: 50vh;
-            background-color: white;
+            background-color: black;
             overflow: hidden; /* Ensure the pseudo-element doesn't affect layout */
         }
 
@@ -56,18 +53,21 @@
             position: relative;
             z-index: 1; /* Ensure the content is above the pseudo-element */
         }
-   .row{
-    /* justify-content: center; */
-    padding-left: 70px;
-   }
+    .row{
+        /* justify-content: center; */
+        margin-left: 5vw;
+    }
    @media(max-width:768px){
     .row{
+        margin-left: 0vw;
+
         padding-left: 0px;
     }
    }
    .latestBlogText{
-    padding-top: 10px;
+    padding-top: 30px;
     padding-left: 115px;
+    padding-bottom: 30px;
    }
    @media(max-width:768px){
     .latestBlogText{
@@ -120,6 +120,24 @@
             align-items: center;
             text-align: center;
         }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+
+        .typing-animation {
+            font-size: 50px;
+            overflow: hidden;
+            border-right: 4px solid;
+            display: inline-block;
+            animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
+            white-space: pre-wrap; /* Allows the text to wrap */
+        }
 </style>
 <head>
     <meta charset="UTF-8">
@@ -132,18 +150,17 @@
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h1 class=" site-heading my-4 mt-13 text-black font-bold text-xl"> Welcome to my awesome Blog </h1>
-                    <h1 class="text-black font-bold" style="font-size: 50px;">UNLOCKING GEOSPATIAL INSIGHTS NAVIGATE THE WORLD OF GIS</h1>
+                    <h1 class=" site-heading my-4 mt-13 text-white font-bold text-xl"> Welcome to my awesome Blog </h1>
+                    <h1 class="text-white font-bold typing-animation" style="font-size: 50px;">UNLOCKING GEOSPATIAL INSIGHTS NAVIGATE THE WORLD OF GIS.</h1>
                 </div>
             </div>
         </div>
     </div>
 </header>
 <div class="latestBlogText">
-    <p class="text-2xl font-bold">My Latest Blogs</p>
+    <p class="text-5xl font-bold">My Latest Blogs</p>
 </div>
 
-<div class="container">
     <div class="row">
         <!-- Blog Entries Column -->
         {% for post in posts %}
