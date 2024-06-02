@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.posts, name='posts'),
     path('about', views.abput, name='about'),
     path('blog', views.blog, name='blog'),
+    path('contact', views.contact, name='contact'),
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
 ]
 if settings.DEBUG:

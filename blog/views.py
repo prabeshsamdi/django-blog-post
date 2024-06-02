@@ -20,3 +20,6 @@ def abput(request):
 def blog(request):
     blog= Post.objects.all()
     return render(request,'blog.html',{'blog': blog})
+
+def contact(request):
+    return render(request,'contact.html')
