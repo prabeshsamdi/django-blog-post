@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.posts, name='posts'),
     path('about', views.abput, name='about'),
+    path('blog', views.blog, name='blog'),
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
 ]
 if settings.DEBUG:

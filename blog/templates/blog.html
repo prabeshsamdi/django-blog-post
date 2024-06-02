@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .titleImage{
+        width: 200px;
+    }
+    .zoom{
+        width: 200px;
+    }
+    .row{
+        margin-left: 100px;
+    }
+</style>
+<body>
+    <div class="latestBlogText">
+        <p class="text-5xl font-bold">My Latest Blogs</p>
+    </div>
+    
+        <div class="row">
+            <!-- Blog Entries Column -->
+            {% for post in blog %}
+    <div class="bg-gray-100 m-2 shadow-lg rounded-lg overflow-hidden card">
+        <div class="bg-white">
+            {% if post.titleImage %}
+            <div class="titleImage">
+
+                <img src="{{ post.titleImage.url }}" alt="{{ post.title }}" class="zoom">
+            </div>
+            {% endif %}
+            <hr class="border-t-2 border-gray-300 my-8">
+            <div class="p-2">
+                <a href="{% url 'post_detail' post.pk %}" class="block">
+                    <h2 class="text-xl font-semibold hover:font-bold hover:text-blue-500">{{ post.title }}</h2>
+                </a>
+                <p class="text-gray-700">By: {{ post.author }}</p>
+                <p class="text-gray-600 text-sm mb-2">{{ post.created_on }}</p>
+                <p class="text-sm text-gray-700">{{ post.content|truncatechars:200 }}</p>
+                <a href="{% url 'post_detail' post.pk %}" class="block">
+    
+                    <div class="more">
+                        <p class="text-sm text-gray-700 mt-2">More...</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    {% endfor %}
+    
+        
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{%endblock%}

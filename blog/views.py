@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import Post
 from .models import About
 def posts(request):
-    posts = Post.objects.filter(status=1)  
+    posts = Post.objects.filter(status=1)[:5]  
     return render(request, 'index.html', {'posts': posts})
 def post_detail(request, pk):
     about=About.objects.all()
@@ -16,3 +16,7 @@ def post_detail(request, pk):
 def abput(request):
     about=About.objects.all()
     return render(request, 'about.html',{'about': about})
+
+def blog(request):
+    blog= Post.objects.all()
+    return render(request,'blog.html',{'blog': blog})

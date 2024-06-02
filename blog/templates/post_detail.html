@@ -98,10 +98,10 @@
     transform: scale(1.2);
 }
 
-.zoom-container:hover .zoom-preview {
+/* .zoom-container:hover .zoom-preview {
     display: block;
     background-image: url('{{ post.firstImage.url }}');
-}
+} */
 
 </style>
 <body class="bg-gray-100 p-6">
@@ -157,7 +157,8 @@
                         <div class="postimage">
                              <img src="{{post.titleImage.url}}" alt="">
                         </div>
-                        <h3>{{post.title}}</h3>
+                        <a href="{% url 'post_detail' post.pk %}"><h3>{{post.title}}</h3></a>
+                        
                 </div>
 <hr>
                 {%endfor%}
@@ -166,7 +167,7 @@
         </div>
     </div>
 </body>
-<script>
+<!-- <script>
     document.addEventListener('DOMContentLoaded', function () {
     const zoomContainer = document.querySelector('.zoom-container');
     const zoomImg = document.querySelector('.zoom-img');
@@ -206,6 +207,6 @@
     });
 });
 
-</script>
+</script> -->
 </html>
 {%endblock%}
