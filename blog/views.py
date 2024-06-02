@@ -19,7 +19,8 @@ def abput(request):
 
 def blog(request):
     blog= Post.objects.all()
-    return render(request,'blog.html',{'blog': blog})
+    about = About.objects.all()
+    return render(request,'blog.html',{'blog': blog,'about':about})
 
 def contact(request):
     return render(request,'contact.html')

@@ -2,62 +2,158 @@
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
-    .titleImage{
+    .titleImage {
         width: 200px;
     }
-    .zoom{
+
+    .zoom {
         width: 200px;
     }
-    .row{
+
+    .row {
         margin-left: 100px;
     }
+
+    .card {
+        display: flex;
+        background-color: gray;
+    }
+
+    .main {
+        display: flex;
+        margin-left: 30px;
+        width: 70vw;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .first {
+        width: 300px;
+        height: 300px;
+        margin: 10px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .second {
+        width: 50vw;
+    }
+   .one{
+    display: flex;
+   }
+   .two{
+    width: 73vw;
+   }
+   .three{
+    margin-left: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+   }
+   .profile{
+        margin-top: 50px;
+        width: 300px;
+        height: 400px;
+        border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+
+    }
+    .eachpost{
+        margin: 5px;
+        color: blue;
+        font-weight: bold;
+        display: flex;
+        margin-top: 10px;
+
+    }
+    .postimage{
+        height: 50px;
+        width: 50px;
+        margin: 5px;
+        border: 1px solid grey;
+    }
 </style>
+
 <body>
     <div class="latestBlogText">
         <p class="text-5xl font-bold">My Latest Blogs</p>
     </div>
-    
-        <div class="row">
-            <!-- Blog Entries Column -->
-            {% for post in blog %}
-    <div class="bg-gray-100 m-2 shadow-lg rounded-lg overflow-hidden card">
-        <div class="bg-white">
-            {% if post.titleImage %}
-            <div class="titleImage">
 
-                <img src="{{ post.titleImage.url }}" alt="{{ post.title }}" class="zoom">
+<div class="one">
+    <div class="two">
+        {% for post in blog %}
+
+
+        <div class="main">
+            {% if post.titleImage %}
+            <div class="first" style="background-image: url('{{post.titleImage.url }}');">
+
             </div>
             {% endif %}
-            <hr class="border-t-2 border-gray-300 my-8">
-            <div class="p-2">
-                <a href="{% url 'post_detail' post.pk %}" class="block">
-                    <h2 class="text-xl font-semibold hover:font-bold hover:text-blue-500">{{ post.title }}</h2>
-                </a>
-                <p class="text-gray-700">By: {{ post.author }}</p>
-                <p class="text-gray-600 text-sm mb-2">{{ post.created_on }}</p>
-                <p class="text-sm text-gray-700">{{ post.content|truncatechars:200 }}</p>
-                <a href="{% url 'post_detail' post.pk %}" class="block">
-    
-                    <div class="more">
-                        <p class="text-sm text-gray-700 mt-2">More...</p>
-                    </div>
-                </a>
+            <div class="second">
+                <div class="p-2">
+                    <a href="{% url 'post_detail' post.pk %}" class="block">
+                        <h2 class="text-xl font-semibold hover:font-bold hover:text-blue-500">{{ post.title }}</h2>
+                    </a>
+                    <p class="text-gray-700">By: {{ post.author }}</p>
+                    <p class="text-gray-600 text-sm mb-2">{{ post.created_on }}</p>
+                    <p class="text-sm text-gray-700">{{ post.content|truncatechars:200 }}</p>
+                    <a href="{% url 'post_detail' post.pk %}" class="block">
+
+                        <div class="more">
+                            <p class="text-sm text-gray-700 mt-2">More...</p>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
+        {% endfor %}
+
+           
     </div>
-    
-    {% endfor %}
-    
-        
+    <div class="three">
+        {% for aboutme in about%}
+        <div class="bg-white m-2 shadow-lg rounded-sm overflow-hidden aboutme">
+            <h1 class="text-4xl font-bold">About Me </h1>
+            <div class="profile" style="background-image: url('{{aboutme.profile_pic.url}}');">
+
             </div>
+            <h2>{{aboutme.full_name}}</h2>
+            <p>{{aboutme.about}}</p>
+            <hr>
+            <h1 class="text-3xl font-bold mt-2 mb-2"> Recent Blogs</h1>
+            {%for post in blog%}
+            <div class="eachpost">
+                <!-- <div class="postimage">
+                    <img src="{{post.titleImage.url}}" alt="">
+                </div> -->
+                <a href="{% url 'post_detail' post.pk %}">
+                    <h3>{{post.title}}</h3>
+                </a>
+
+            </div>
+            <hr>
+            {%endfor%}
         </div>
+        {%endfor%}
+
+    </div>
+</div>
+
+
+      
+
+
+</div>
     </div>
 </body>
+
 </html>
 {%endblock%}
